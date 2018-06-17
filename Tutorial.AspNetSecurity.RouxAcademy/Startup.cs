@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Tutorial.AspNetSecurity.RouxAcademy.DataServices;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Tutorial.AspNetSecurity.RouxAcademy
 {
@@ -29,7 +30,17 @@ namespace Tutorial.AspNetSecurity.RouxAcademy
         {
             //Register Student database context
             services.AddDbContext<StudentDataContext>(options =>
-              options.UseSqlServer(Configuration.GetConnectionString("RouxAcademy")));
+                options.UseSqlServer(Configuration.GetConnectionString("RouxAcademy")));
+
+            services.AddDbContext<IdentityDbContext>(options => 
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("RouxAcademy"),
+                    optionsBuilders =>
+                        optionsBuilders.MigrationsAssembly("Tutorial.AspNetSecurity.RouxAcademy")));
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<IdentityDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddMvc();
         }
@@ -50,6 +61,9 @@ namespace Tutorial.AspNetSecurity.RouxAcademy
             }
 
             app.UseStaticFiles();
+
+            // Enable ASP.Net identity
+            app.UseIdentity();
 
             app.UseMvc(routes =>
             {

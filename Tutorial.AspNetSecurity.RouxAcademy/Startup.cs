@@ -62,7 +62,7 @@ namespace Tutorial.AspNetSecurity.RouxAcademy
 
             app.UseStaticFiles();
 
-            // Enable ASP.Net identity
+            // Enable ASP.Net cookie based identity
             app.UseIdentity();
 
             app.UseMvc(routes =>

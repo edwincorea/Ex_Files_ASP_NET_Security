@@ -113,5 +113,11 @@ namespace Tutorial.AspNetSecurity.RouxAcademy.Controllers
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
     }
 }

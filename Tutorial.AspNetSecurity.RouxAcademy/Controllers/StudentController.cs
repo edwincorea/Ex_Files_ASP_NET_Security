@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Tutorial.AspNetSecurity.RouxAcademy.Models.Student;
 using Tutorial.AspNetSecurity.RouxAcademy.DataServices;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Tutorial.AspNetSecurity.RouxAcademy.Controllers
 {
+    [Authorize]
     public class StudentController : Controller
     {
         private readonly StudentDataContext _db;
@@ -41,7 +43,9 @@ namespace Tutorial.AspNetSecurity.RouxAcademy.Controllers
 
             return RedirectToAction(nameof(StudentController.Index), "Student");
         }
+
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Classifications()
         {
             var classifications = new List<string>()

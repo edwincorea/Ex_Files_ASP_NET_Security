@@ -6,7 +6,7 @@
     Layout = "_ContentLayout";
 }
 <fieldset>
-<h2>Welcome Student!</h2>
+<h2>Welcome @User.Identity.Name!</h2>
 @foreach (var grade in Model)
 {
     <h3>@grade.CourseName</h3>

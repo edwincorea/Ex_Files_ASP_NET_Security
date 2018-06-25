@@ -42,6 +42,15 @@ namespace Tutorial.AspNetSecurity.RouxAcademy.Controllers
                     UserName = model.Email
                 };
 
+                if (!string.IsNullOrEmpty(model.FacultyNumber))
+                {
+                    user.Claims.Add(new IdentityUserClaim<string>
+                    {
+                        ClaimType = "FacultyNumber",
+                        ClaimValue = model.FacultyNumber
+                    });
+                }
+
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)

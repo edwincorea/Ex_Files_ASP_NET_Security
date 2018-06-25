@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Tutorial.AspNetSecurity.RouxAcademy.Models.Student;
 using Tutorial.AspNetSecurity.RouxAcademy.DataServices;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,15 +23,21 @@ namespace Tutorial.AspNetSecurity.RouxAcademy.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            return View(new List<CourseGrade>());
+            var username = User.Identity.Name;
+            var grades = _db.Grades.Where(g => g.StudentUsername == username).ToList();
+
+            return View(grades);
         }
+
         [HttpGet]
+        [Authorize(Policy = "FacultyOnly")]
         public IActionResult AddGrade()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Policy = "FacultyOnly")]
         public IActionResult AddGrade(CourseGrade model)
         {
             if (!ModelState.IsValid)

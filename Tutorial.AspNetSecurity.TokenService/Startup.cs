@@ -13,6 +13,8 @@ namespace Tutorial.AspNetSecurity.TokenService
         {
             services.AddIdentityServer()
                 .AddTemporarySigningCredential(); //creates temporary keys for signing tokens
+
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -26,6 +28,9 @@ namespace Tutorial.AspNetSecurity.TokenService
             }
 
             app.UseIdentityServer();
+
+            app.UseStaticFiles();
+            app.UseMvcWithDefaultRoute();
         }
     }
 }

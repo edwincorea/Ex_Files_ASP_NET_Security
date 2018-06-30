@@ -3,7 +3,8 @@
     string name = null;
     if (!true.Equals(ViewData["signed-out"]))
     {
-        name = Context.User?.GetDisplayName();
+        var user = await Context.GetIdentityServerUserAsync();
+        name = user?.FindFirst("name")?.Value;
     }
 }
 <!DOCTYPE html>
@@ -36,7 +37,7 @@
                 </a>
             </div>
 
-            @if (!string.IsNullOrWhiteSpace(name))
+            @if (name != null)
             {
                 <ul class="nav navbar-nav">
                     <li class="dropdown">

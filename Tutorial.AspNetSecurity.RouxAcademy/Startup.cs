@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Tutorial.AspNetSecurity.RouxAcademy.DataServices;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace Tutorial.AspNetSecurity.RouxAcademy
 {
@@ -33,8 +35,6 @@ namespace Tutorial.AspNetSecurity.RouxAcademy
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            var secret = Configuration["PaymentProcessorPassword"];
-
             //Register Student database context
             services.AddDbContext<StudentDataContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("RouxAcademy")));
@@ -48,6 +48,13 @@ namespace Tutorial.AspNetSecurity.RouxAcademy
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<IdentityDbContext>()
                 .AddDefaultTokenProviders();
+
+            var secret = Configuration["PaymentProcessorPassword"];
+
+            services.Configure<MvcOptions>(options =>
+                {
+                    options.Filters.Add(new RequireHttpsAttribute());
+                });
 
             services.AddMvc();
 
@@ -73,6 +80,10 @@ namespace Tutorial.AspNetSecurity.RouxAcademy
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            var rewriteOptions = new RewriteOptions().AddRedirectToHttps();
+
+            app.UseRewriter(rewriteOptions);
 
             app.UseStaticFiles();
 

@@ -6,6 +6,7 @@ using Tutorial.AspNetSecurity.RouxAcademy.Models.AccountViewModels;
 
 namespace Tutorial.AspNetSecurity.RouxAcademy.Controllers
 {
+    [RequireHttps]
     public class AccountController : Controller
     {
         // User managing API for persisting users.

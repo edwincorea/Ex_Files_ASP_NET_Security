@@ -57,6 +57,23 @@ namespace Tutorial.AspNetSecurity.WebClient
 
             app.UseStaticFiles();
 
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AuthenticationScheme = "Cookies"
+            });
+
+            app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
+            {
+                AuthenticationScheme = "oidc", // OpenId Connect
+                // cookie middleware being used for local sign in
+                // this happens after successful token authentication with IdentityServer
+                SignInScheme = "Cookies", 
+                Authority = "http://localhost:5000", //tolen service URL
+                RequireHttpsMetadata = false, // true for production
+                ClientId = "RouxAcademyMVC", // should match the value registered in IdentityServer client store
+                SaveTokens = true
+            });
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

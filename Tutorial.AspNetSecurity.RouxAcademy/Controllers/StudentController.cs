@@ -11,6 +11,7 @@ using System.Linq;
 namespace Tutorial.AspNetSecurity.RouxAcademy.Controllers
 {
     [Authorize]
+    [AutoValidateAntiforgeryToken]
     public class StudentController : Controller
     {
         private readonly StudentDataContext _db;

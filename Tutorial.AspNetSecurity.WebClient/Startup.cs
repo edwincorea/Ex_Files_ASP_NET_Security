@@ -59,7 +59,15 @@ namespace Tutorial.AspNetSecurity.WebClient
 
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
-                AuthenticationScheme = "Cookies"
+                AuthenticationScheme = "Cookies",
+                // Cookie Protection on Production Env:
+                // 1. tells the browser that the cookie cannot be accesed by client-side scripts. Sent cookie as an HTTP header.
+                CookieHttpOnly = true, 
+                // 2. tells the browser to use secure cookies which are sent through HTTPS only.
+                CookieSecure = env.IsDevelopment() ?
+                    Microsoft.AspNetCore.Http.CookieSecurePolicy.SameAsRequest :
+                    Microsoft.AspNetCore.Http.CookieSecurePolicy.Always,
+                ExpireTimeSpan = new System.TimeSpan(12, 0, 0) // expire cookie after 12 hours
             });
 
             app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions

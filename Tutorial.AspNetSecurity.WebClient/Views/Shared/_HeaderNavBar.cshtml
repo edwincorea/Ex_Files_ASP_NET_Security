@@ -15,6 +15,12 @@
         <li><a href="alumni.htm" title="alumni">Alumni</a></li>
         <li><a href="about/about.htm" title="about Roux Academy">About</a></li>
         <li>
+            @if(User.Identity.IsAuthenticated)
+            {
+                <form id="logout" asp-controller="Account" role="form" asp-action="Logout">
+                    <input type="submit" value="Logout" class="logout" />
+                </form>
+            }
         </li>
     </ul>
 </nav>

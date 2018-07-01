@@ -1,4 +1,5 @@
-﻿using IdentityServer4.Quickstart.UI;
+﻿using IdentityServer4;
+using IdentityServer4.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,7 +34,17 @@ namespace Tutorial.AspNetSecurity.TokenService
 
             app.UseIdentityServer();
 
+            app.UseGoogleAuthentication(new GoogleOptions
+            {
+                AuthenticationScheme = "Google",
+                DisplayName = "Google",
+                SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme,
+                ClientId = "122244259159-j49qqu4hob7dd3bluuu2b3q9mhndeud0.apps.googleusercontent.com",
+                ClientSecret = "vGXo6IRecc-J-7ibcbIjpb-D"
+            });
+
             app.UseStaticFiles();
+
             app.UseMvcWithDefaultRoute();
         }
     }

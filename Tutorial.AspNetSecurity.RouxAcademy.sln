@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tutorial.AspNetSecurity.RouxAcademy", "Tutorial.AspNetSecurity.RouxAcademy\Tutorial.AspNetSecurity.RouxAcademy.csproj", "{1F5864D9-5FEE-4086-B6C7-2B2ED282DEDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutorial.AspNetSecurity.TokenService", "Tutorial.AspNetSecurity.TokenService\Tutorial.AspNetSecurity.TokenService.csproj", "{76693124-5E3B-4642-8163-9868BD70BEDF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tutorial.AspNetSecurity.TokenService", "Tutorial.AspNetSecurity.TokenService\Tutorial.AspNetSecurity.TokenService.csproj", "{76693124-5E3B-4642-8163-9868BD70BEDF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tutorial.AspNetSecurity.WebClient", "Tutorial.AspNetSecurity.WebClient\Tutorial.AspNetSecurity.WebClient.csproj", "{6BF3DFBF-71D3-42B0-B23A-D07A44AA062B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{76693124-5E3B-4642-8163-9868BD70BEDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76693124-5E3B-4642-8163-9868BD70BEDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76693124-5E3B-4642-8163-9868BD70BEDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BF3DFBF-71D3-42B0-B23A-D07A44AA062B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BF3DFBF-71D3-42B0-B23A-D07A44AA062B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BF3DFBF-71D3-42B0-B23A-D07A44AA062B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BF3DFBF-71D3-42B0-B23A-D07A44AA062B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

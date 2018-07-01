@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Tutorial.AspNetSecurity.WebApi.Controllers
 {
+    [DisableCors]
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {

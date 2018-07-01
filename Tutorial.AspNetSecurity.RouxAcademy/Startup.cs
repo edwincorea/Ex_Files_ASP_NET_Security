@@ -19,6 +19,11 @@ namespace Tutorial.AspNetSecurity.RouxAcademy
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
 
+            if (env.IsDevelopment())
+            {
+                builder.AddUserSecrets<Startup>();
+            }
+
             Configuration = builder.Build();
         }
 
@@ -28,6 +33,8 @@ namespace Tutorial.AspNetSecurity.RouxAcademy
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            var secret = Configuration["PaymentProcessorPassword"];
+
             //Register Student database context
             services.AddDbContext<StudentDataContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("RouxAcademy")));

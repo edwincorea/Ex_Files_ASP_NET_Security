@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,6 +33,10 @@ namespace Tutorial.AspNetSecurity.WebApi
                         .WithMethods("GET")
                         .AllowAnyHeader());
             });
+
+            services.AddDataProtection()
+                .DisableAutomaticKeyGeneration() // Disable key rotation
+                .SetDefaultKeyLifetime(new System.TimeSpan(14, 0, 0, 0)); // key lifetime of 14 days
 
             // Add framework services.
             services.AddMvc();

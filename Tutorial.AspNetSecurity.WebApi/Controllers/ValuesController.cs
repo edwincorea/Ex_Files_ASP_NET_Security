@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Tutorial.AspNetSecurity.WebApi.Controllers
@@ -8,6 +9,15 @@ namespace Tutorial.AspNetSecurity.WebApi.Controllers
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
+        IDataProtector _protector;
+
+        public ValuesController(IDataProtectionProvider provider)
+        {
+            _protector = provider.CreateProtector(
+                    "Tutorial.AspNetSecurity.WebApi.Controllers.ValuesController",
+                    new string[] { "Tenant1" });
+        }
+
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
@@ -38,6 +48,25 @@ namespace Tutorial.AspNetSecurity.WebApi.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+
+        [HttpGet]
+        [Route("UserIds")]
+        public IEnumerable<string> GetUserIds()
+        {
+            var secretId1 = _protector.Protect("ST123");
+            var secretId2 = _protector.Protect("FC456");
+
+            return new string[] { secretId1, secretId2 };
+        }
+
+        [HttpGet]
+        [Route("PlainTextId")]
+        public string GetPlainTextId(string encryptedId)
+        {
+            var plainText = _protector.Unprotect(encryptedId);
+
+            return plainText;
         }
     }
 }
